@@ -14,7 +14,7 @@ has 'service_url' => (
     isa     => 'Mojo::URL',
     is      => 'ro',
     lazy    => 1,
-    default => sub { Mojo::URL->new('http://api.met.no') },
+    default => sub { Mojo::URL->new('https://api.met.no') },
 );
 
 has [ 'lat', 'lon', 'msl' ] => (
@@ -79,7 +79,8 @@ sub _build_xml_ref {
         if ( $self->can('schema_url') ) {
             eval {
                 my $xml_doc = XML::LibXML->new->load_xml( string => $self->xml );
-                my $schema  = XML::LibXML::Schema->new( location => $self->schema_url );
+                my $response = $self->ua->get( $self->schema_url->to_string );
+                my $schema  = XML::LibXML::Schema->new( string => $response->decoded_content );
 
                 $schema->validate( $xml_doc );
             };
