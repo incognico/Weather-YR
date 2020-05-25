@@ -1,3 +1,8 @@
+# NOTE
+Although this is a bugfixed and working version of `Weather::YR` which now supports HTTPS, includes English symbol names and corrects a deep recursion bug, this module implements the 1.9 XML API which will get deprecated in near future. I recommend you to use (or work on) https://github.com/incognico/p5-Weather-METNO which bases on the locationforecast 2.0 JSON API.
+
+---
+
 # NAME
 
 Weather::YR - Object-oriented interface to Yr.no's weather service.
